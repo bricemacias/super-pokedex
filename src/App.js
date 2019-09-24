@@ -20,7 +20,7 @@ function App() {
         console.log(fetchedPokemons);
         setPokemons(fetchedPokemons);
       });
-  });
+  }, []);
 
   const onSearchTyping = event => {
     setSearchField(event.target.value);
