@@ -8,6 +8,7 @@ function App() {
   return (
     <div className="App">
       <h1>Super Pokedex</h1>
+      <SearchBox />
       <CardList className="CardList" pokemons={pokemons} />
     </div>
   );
