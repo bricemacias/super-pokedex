@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-const Cardlist = ({ pokemons }) => {
+const CardList = ({ pokemons }) => {
   return (
     <div>
       {pokemons.map(pokemon => {
@@ -21,4 +21,4 @@ const Cardlist = ({ pokemons }) => {
   );
 };
 
-export default Cardlist;
+export default CardList;
