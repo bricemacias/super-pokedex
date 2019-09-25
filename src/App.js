@@ -8,26 +8,34 @@ import HeightSlider from './components/HeightSlider';
 import RadioButton from './components/Inputs/RadioButton';
 import TypeList from './components/TypeList';
 
-import axios from 'axios';
-
-import { pokemonsExample } from './files/pokemons-example';
-
 import { setSearchField } from './redux/actions/searchAction';
+import { requestPokemons } from './redux/actions/fetchingPokemonsAction';
 
 const mapStateToProps = state => {
   return {
-    searchField: state.searchField
+    searchField: state.searchPokemons.searchField,
+    pokemons: state.requestPokemons.pokemons,
+    isPending: state.requestPokemons.isPending,
+    error: state.requestPokemons.error
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSearchTyping: event => dispatch(setSearchField(event.target.value))
+    onSearchTyping: event => dispatch(setSearchField(event.target.value)),
+    onRequestPokemons: () => dispatch(requestPokemons())
   };
 };
 
-function App({ searchField, onSearchTyping }) {
-  const [pokemons, setPokemons] = useState(pokemonsExample);
+function App({
+  searchField,
+  onSearchTyping,
+  pokemons,
+  isPending,
+  error,
+  onRequestPokemons
+}) {
+  //const [pokemons, setPokemons] = useState(pokemonsExample);
   //const [searchfield, setSearchfield] = useState('');
   const [optionvalue, setOptionvalue] = useState('name');
   const [checkboxvalues, setCheckboxvalues] = useState({
@@ -54,16 +62,17 @@ function App({ searchField, onSearchTyping }) {
   const [slidervalues, setSlidervalues] = useState({ min: 0, max: 7 });
 
   useEffect(() => {
-    axios
-      .get(
-        'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json'
-      )
-      .then(response => {
-        const fetchedPokemons = response.data.pokemon;
-        console.log(fetchedPokemons);
-        setPokemons(fetchedPokemons);
-      });
-  }, []);
+    onRequestPokemons();
+    //   axios
+    //     .get(
+    //       'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json'
+    //     )
+    //     .then(response => {
+    //       const fetchedPokemons = response.data.pokemon;
+    //       console.log(fetchedPokemons);
+    //       setPokemons(fetchedPokemons);
+    //     });
+  }, [onRequestPokemons]);
 
   // const onSearchTyping = event => {
   //   setSearchfield(event.target.value);
@@ -123,7 +132,9 @@ function App({ searchField, onSearchTyping }) {
     }
   });
 
-  return (
+  return isPending ? (
+    <h1 className="tc mt5">Loading</h1>
+  ) : (
     <div className="App">
       <h1 style={{ fontSize: 70 }}>Super Pokedex</h1>
       <div className="container">
