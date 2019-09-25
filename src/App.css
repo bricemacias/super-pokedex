@@ -6,6 +6,18 @@
   justify-content: center;
 }
 
+.container,
+.form-container {
+  display: flex;
+}
+
+.form-container {
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  text-align: left;
+}
+
 .CardList {
   text-align: center;
   display: flex;

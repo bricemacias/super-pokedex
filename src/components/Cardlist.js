@@ -1,9 +1,11 @@
 import React from 'react';
 import Card from './Card';
 
+const wrapperStyle = { marginTop: 50 };
+
 const CardList = ({ pokemons }) => {
   return (
-    <div>
+    <div style={wrapperStyle}>
       {pokemons.map(pokemon => {
         return (
           <Card
