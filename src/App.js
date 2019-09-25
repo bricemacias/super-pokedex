@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import CardList from './components/CardList';
 import SearchBox from './components/SearchBox';
+import HeightSlider from './components/HeightSlider';
+import RadioButton from './components/Inputs/RadioButton';
 import axios from 'axios';
 import { pokemonsExample } from './files/pokemons-example';
-import HeightSlider from './components/HeightSlider';
 
 function App() {
   const [pokemons, setPokemons] = useState(pokemonsExample);
@@ -62,32 +63,18 @@ function App() {
       <div className="container">
         <SearchBox searchChange={onSearchTyping} />
         <form className="form-container">
-          <div className="form-check">
-            <label>
-              <input
-                type="radio"
-                name="search-type"
-                value="name"
-                checked={checkboxvalue === 'name'}
-                onChange={handleOptionChange}
-                className="form-check-input"
-              />
-              {` Name`}
-            </label>
-          </div>
-          <div className="form-check">
-            <label>
-              <input
-                type="radio"
-                name="search-type"
-                value="type"
-                checked={checkboxvalue === 'type'}
-                onChange={handleOptionChange}
-                className="form-check-input"
-              />
-              {` Type`}
-            </label>
-          </div>
+          <RadioButton
+            buttonName="Name"
+            buttonValue="name"
+            checkedValue={checkboxvalue === 'name'}
+            optionChange={handleOptionChange}
+          />
+          <RadioButton
+            buttonName="Type"
+            buttonValue="type"
+            checkedValue={checkboxvalue === 'type'}
+            optionChange={handleOptionChange}
+          />
         </form>
       </div>
       <h2>Filter By Height</h2>
