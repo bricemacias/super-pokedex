@@ -30,7 +30,10 @@ function App() {
     bug: 0,
     rock: 0,
     ghost: 0,
-    dragon: 0
+    dragon: 0,
+    dark: 0,
+    steel: 0,
+    fairy: 0
   });
   const [count, setCount] = useState(0);
   const [slidervalues, setSlidervalues] = useState({ min: 0, max: 7 });

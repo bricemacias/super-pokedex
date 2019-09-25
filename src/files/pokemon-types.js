@@ -13,5 +13,8 @@ export const pokemonTypes = [
   { id: 12, value: 'bug', color: '#A8B820' },
   { id: 13, value: 'rock', color: '#B8A038' },
   { id: 14, value: 'ghost', color: '#705898' },
-  { id: 15, value: 'dragon', color: '#7038F8' }
+  { id: 15, value: 'dragon', color: '#7038F8' },
+  { id: 16, value: 'dark', color: '#705848' },
+  { id: 17, value: 'steel', color: '#B8B8D0' },
+  { id: 18, value: 'fairy', color: '#EE99AC' }
 ];
