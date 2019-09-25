@@ -110,7 +110,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Super Pokedex</h1>
+      <h1 style={{ fontSize: 70 }}>Super Pokedex</h1>
       <div className="container">
         <SearchBox searchChange={onSearchTyping} />
         <form className="form-container">
