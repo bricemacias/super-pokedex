@@ -5,7 +5,6 @@ import CardList from './components/CardList';
 import SearchBox from './components/SearchBox';
 import HeightSlider from './components/HeightSlider';
 import RadioButton from './components/Inputs/RadioButton';
-import CheckboxButton from './components/Inputs/CheckboxButton';
 import TypeList from './components/TypeList';
 
 import axios from 'axios';
@@ -127,17 +126,9 @@ function App() {
       <h2>Filter By Height</h2>
       <HeightSlider values={slidervalues} sliderChange={onSliderChange} />
       <h2>Filter By Weaknesses</h2>
-      <CheckboxButton
-        buttonName="Fire"
-        buttonValue="fire"
-        checkedValue={checkboxvalues.fire === 1}
-        optionChange={handleWeaknessChange}
-      />
-      <CheckboxButton
-        buttonName="Water"
-        buttonValue="water"
-        checkedValue={checkboxvalues.water === 1}
-        optionChange={handleWeaknessChange}
+      <TypeList
+        typeValues={checkboxvalues}
+        typelistChange={handleWeaknessChange}
       />
       <CardList className="CardList" pokemons={filteredPokemons} />
     </div>

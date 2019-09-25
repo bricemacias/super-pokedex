@@ -26,6 +26,16 @@
   justify-content: center;
 }
 
+.TypeList {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px 20px 0px 20px;
+  padding-left: 50px;
+  align-items: left;
+  justify-content: left;
+  text-align: left;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
