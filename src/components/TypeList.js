@@ -7,7 +7,7 @@ const TypeList = ({ typeValues, typelistChange }) => {
     <div className="TypeList">
       {pokemonTypes.map(type => {
         return (
-          <div className="pa3">
+          <div className="pa3" key={type.id}>
             <CheckboxButton
               key={type.id}
               buttonName={`${type.value

@@ -22,7 +22,6 @@ const Card = ({ id, image, name, type, weaknesses, height }) => {
     fairy: '#EE99AC'
   };
 
-  console.log(colors[type[0].toLowerCase()]);
   return (
     <div
       className="tc dib br3 pa3 ma2 grow bw2 shadow-5"

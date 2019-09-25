@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 
 import CardList from './components/CardList';
@@ -11,9 +12,23 @@ import axios from 'axios';
 
 import { pokemonsExample } from './files/pokemons-example';
 
-function App() {
+import { setSearchField } from './redux/actions/searchAction';
+
+const mapStateToProps = state => {
+  return {
+    searchField: state.searchField
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSearchTyping: event => dispatch(setSearchField(event.target.value))
+  };
+};
+
+function App({ searchField, onSearchTyping }) {
   const [pokemons, setPokemons] = useState(pokemonsExample);
-  const [searchfield, setSearchfield] = useState('');
+  //const [searchfield, setSearchfield] = useState('');
   const [optionvalue, setOptionvalue] = useState('name');
   const [checkboxvalues, setCheckboxvalues] = useState({
     normal: 0,
@@ -50,9 +65,9 @@ function App() {
       });
   }, []);
 
-  const onSearchTyping = event => {
-    setSearchfield(event.target.value);
-  };
+  // const onSearchTyping = event => {
+  //   setSearchfield(event.target.value);
+  // };
 
   const onSliderChange = value => {
     console.log(value);
@@ -98,11 +113,11 @@ function App() {
 
   const filteredPokemons = filteredWeaknessPokemons.filter(pokemon => {
     if (optionvalue === 'name') {
-      return pokemon.name.toLowerCase().includes(searchfield.toLowerCase());
+      return pokemon.name.toLowerCase().includes(searchField.toLowerCase());
     } else if (optionvalue === 'type') {
       return pokemon.type
         .map(el => el.toLowerCase())
-        .includes(searchfield.toLowerCase());
+        .includes(searchField.toLowerCase());
     } else {
       return false;
     }
@@ -140,4 +155,7 @@ function App() {
   );
 }
 
-export default App;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
