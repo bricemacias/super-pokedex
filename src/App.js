@@ -86,7 +86,9 @@ function App() {
     } else {
       let weaknesses = pokemon.weaknesses.map(el => el.toLowerCase());
       for (let i of weaknesses) {
-        return checkboxvalues[i] === 1;
+        if (checkboxvalues[i] === 1) {
+          return true;
+        }
       }
     }
   });
