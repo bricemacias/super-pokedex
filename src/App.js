@@ -1,16 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+
 import CardList from './components/CardList';
 import SearchBox from './components/SearchBox';
 import HeightSlider from './components/HeightSlider';
 import RadioButton from './components/Inputs/RadioButton';
+import CheckboxButton from './components/Inputs/CheckboxButton';
+import TypeList from './components/TypeList';
+
 import axios from 'axios';
+
 import { pokemonsExample } from './files/pokemons-example';
 
 function App() {
   const [pokemons, setPokemons] = useState(pokemonsExample);
   const [searchfield, setSearchfield] = useState('');
-  const [checkboxvalue, setCheckboxvalue] = useState('name');
+  const [optionvalue, setOptionvalue] = useState('name');
+  const [checkboxvalues, setCheckboxvalues] = useState({
+    normal: 0,
+    fire: 0,
+    water: 0,
+    grass: 0,
+    electric: 0,
+    ice: 0,
+    fighting: 0,
+    poison: 0,
+    ground: 0,
+    flying: 0,
+    psychic: 0,
+    bug: 0,
+    rock: 0,
+    ghost: 0,
+    dragon: 0
+  });
+  const [count, setCount] = useState(0);
   const [slidervalues, setSlidervalues] = useState({ min: 0, max: 7 });
 
   useEffect(() => {
@@ -35,7 +58,20 @@ function App() {
   };
 
   const handleOptionChange = changeEvent => {
-    setCheckboxvalue(changeEvent.target.value);
+    setOptionvalue(changeEvent.target.value);
+  };
+
+  const handleWeaknessChange = changeEvent => {
+    console.log(checkboxvalues);
+    let type = changeEvent.target.value;
+    let counter = count;
+    if (checkboxvalues[type] === 1) {
+      setCheckboxvalues({ ...checkboxvalues, [type]: 0 });
+      setCount(--counter);
+    } else if (checkboxvalues[type] === 0) {
+      setCheckboxvalues({ ...checkboxvalues, [type]: 1 });
+      setCount(++counter);
+    }
   };
 
   const filteredHeightPokemons = pokemons.filter(pokemon => {
@@ -45,10 +81,21 @@ function App() {
     );
   });
 
-  const filteredPokemons = filteredHeightPokemons.filter(pokemon => {
-    if (checkboxvalue === 'name') {
+  const filteredWeaknessPokemons = filteredHeightPokemons.filter(pokemon => {
+    if (count === 0) {
+      return true;
+    } else {
+      let weaknesses = pokemon.weaknesses.map(el => el.toLowerCase());
+      for (let i of weaknesses) {
+        return checkboxvalues[i] === 1;
+      }
+    }
+  });
+
+  const filteredPokemons = filteredWeaknessPokemons.filter(pokemon => {
+    if (optionvalue === 'name') {
       return pokemon.name.toLowerCase().includes(searchfield.toLowerCase());
-    } else if (checkboxvalue === 'type') {
+    } else if (optionvalue === 'type') {
       return pokemon.type
         .map(el => el.toLowerCase())
         .includes(searchfield.toLowerCase());
@@ -66,19 +113,32 @@ function App() {
           <RadioButton
             buttonName="Name"
             buttonValue="name"
-            checkedValue={checkboxvalue === 'name'}
+            checkedValue={optionvalue === 'name'}
             optionChange={handleOptionChange}
           />
           <RadioButton
             buttonName="Type"
             buttonValue="type"
-            checkedValue={checkboxvalue === 'type'}
+            checkedValue={optionvalue === 'type'}
             optionChange={handleOptionChange}
           />
         </form>
       </div>
       <h2>Filter By Height</h2>
       <HeightSlider values={slidervalues} sliderChange={onSliderChange} />
+      <h2>Filter By Weaknesses</h2>
+      <CheckboxButton
+        buttonName="Fire"
+        buttonValue="fire"
+        checkedValue={checkboxvalues.fire === 1}
+        optionChange={handleWeaknessChange}
+      />
+      <CheckboxButton
+        buttonName="Water"
+        buttonValue="water"
+        checkedValue={checkboxvalues.water === 1}
+        optionChange={handleWeaknessChange}
+      />
       <CardList className="CardList" pokemons={filteredPokemons} />
     </div>
   );
