@@ -8,7 +8,12 @@ import HeightSlider from './components/HeightSlider';
 import RadioButton from './components/Inputs/RadioButton';
 import TypeList from './components/TypeList';
 
-import { setSearchField, returnFilter } from './redux/actions/searchActions';
+import {
+  setSearchField,
+  setTypeField,
+  setTypeAutocomplete,
+  returnFilter
+} from './redux/actions/searchActions';
 import { requestPokemons } from './redux/actions/fetchingPokemonsActions';
 import {
   setHeightFilter,
@@ -18,6 +23,8 @@ import {
 function App({
   searchField,
   onSearchTyping,
+  onTypeTyping,
+  onTypeAutocomplete,
   onFilter,
   pokemons,
   isPending,
@@ -81,7 +88,12 @@ function App({
     <div className="App">
       <h1 style={{ fontSize: 70 }}>Super Pokedex</h1>
       <div className="container">
-        <SearchBox searchChange={onSearchTyping} />
+        <SearchBox
+          searchChange={onSearchTyping}
+          typeChange={onTypeTyping}
+          autocompleteChange={onTypeAutocomplete}
+          searchType={optionvalue}
+        />
         <form className="form-container">
           <RadioButton
             buttonName="Name"
@@ -125,6 +137,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onSearchTyping: event => dispatch(setSearchField(event.target.value)),
+    onTypeTyping: event => dispatch(setSearchField(event)),
+    onTypeAutocomplete: array => dispatch(setTypeAutocomplete(array)),
     onFilter: pokemonList => dispatch(returnFilter(pokemonList)),
     onRequestPokemons: () => dispatch(requestPokemons()),
     onHeightFilter: values => dispatch(setHeightFilter(values)),
