@@ -10,7 +10,6 @@ import TypeList from './components/TypeList';
 
 import {
   setSearchField,
-  setTypeField,
   setTypeAutocomplete,
   returnFilter
 } from './redux/actions/searchActions';
