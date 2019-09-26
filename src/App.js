@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 
-import CardList from './components/CardList';
-import SearchBox from './components/SearchBox';
-import HeightSlider from './components/HeightSlider';
-import RadioButton from './components/Inputs/RadioButton';
-import TypeList from './components/TypeList';
+import CardList from '../src/components/CardList';
+import SearchBox from '../src/components/SearchBox';
+import HeightSlider from '../src/components/HeightSlider';
+import RadioButton from '../src/components/Inputs/RadioButton';
+import TypeList from '../src/components/TypeList';
 
 import {
   setSearchField,
