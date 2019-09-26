@@ -8,28 +8,13 @@ import HeightSlider from './components/HeightSlider';
 import RadioButton from './components/Inputs/RadioButton';
 import TypeList from './components/TypeList';
 
-import { setSearchField } from './redux/actions/searchAction';
+import { setSearchField, returnFilter } from './redux/actions/searchAction';
 import { requestPokemons } from './redux/actions/fetchingPokemonsAction';
-
-const mapStateToProps = state => {
-  return {
-    searchField: state.searchPokemons.searchField,
-    pokemons: state.requestPokemons.pokemons,
-    isPending: state.requestPokemons.isPending,
-    error: state.requestPokemons.error
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onSearchTyping: event => dispatch(setSearchField(event.target.value)),
-    onRequestPokemons: () => dispatch(requestPokemons())
-  };
-};
 
 function App({
   searchField,
   onSearchTyping,
+  onFilter,
   pokemons,
   isPending,
   error,
@@ -63,20 +48,7 @@ function App({
 
   useEffect(() => {
     onRequestPokemons();
-    //   axios
-    //     .get(
-    //       'https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json'
-    //     )
-    //     .then(response => {
-    //       const fetchedPokemons = response.data.pokemon;
-    //       console.log(fetchedPokemons);
-    //       setPokemons(fetchedPokemons);
-    //     });
   }, [onRequestPokemons]);
-
-  // const onSearchTyping = event => {
-  //   setSearchfield(event.target.value);
-  // };
 
   const onSliderChange = value => {
     console.log(value);
@@ -120,17 +92,23 @@ function App({
     }
   });
 
-  const filteredPokemons = filteredWeaknessPokemons.filter(pokemon => {
-    if (optionvalue === 'name') {
-      return pokemon.name.toLowerCase().includes(searchField.toLowerCase());
-    } else if (optionvalue === 'type') {
-      return pokemon.type
-        .map(el => el.toLowerCase())
-        .includes(searchField.toLowerCase());
-    } else {
-      return false;
-    }
-  });
+  const filteredPokemons =
+    //onFilter(pokemons, optionvalue, searchField);
+    filteredWeaknessPokemons.filter(pokemon => {
+      if (optionvalue === 'name') {
+        return pokemon.name.toLowerCase().includes(searchField.toLowerCase());
+      } else if (optionvalue === 'type') {
+        return pokemon.type
+          .map(el => el.toLowerCase())
+          .includes(searchField.toLowerCase());
+      } else {
+        return false;
+      }
+    });
+
+  useEffect(() => {
+    onFilter(filteredPokemons);
+  }, [searchField, slidervalues, checkboxvalues]);
 
   return isPending ? (
     <h1 className="tc mt5">Loading</h1>
@@ -165,6 +143,26 @@ function App({
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    searchField: state.searchPokemons.searchField,
+    table: state.searchPokemons.table,
+    pokemons: state.requestPokemons.pokemons,
+    isPending: state.requestPokemons.isPending,
+    error: state.requestPokemons.error
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSearchTyping: event => dispatch(setSearchField(event.target.value)),
+    // onFilter1: (pokemonList, anOption, aSearchList) =>
+    //   dispatch(filterPokemons(pokemonList, anOption, aSearchList)),
+    onFilter: pokemonList => dispatch(returnFilter(pokemonList)),
+    onRequestPokemons: () => dispatch(requestPokemons())
+  };
+};
 
 export default connect(
   mapStateToProps,
