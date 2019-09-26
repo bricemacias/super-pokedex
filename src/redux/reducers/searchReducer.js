@@ -2,11 +2,13 @@ import {
   CHANGE_SEARCH_FIELD,
   // FILTER_POKEMONS_SUCCESS,
   // FILTER_POKEMONS_FAILED,
-  RETURN_TABLE
+  RETURN_TABLE,
+  REQUEST_POKEMONS_SUCCESS
 } from '../types';
 
 const initialState = {
-  searchField: ''
+  searchField: '',
+  table: []
 };
 
 export const searchPokemons = (state = initialState, action = {}) => {
@@ -17,6 +19,11 @@ export const searchPokemons = (state = initialState, action = {}) => {
         searchField: action.payload
       };
     case RETURN_TABLE:
+      return {
+        ...state,
+        table: action.payload
+      };
+    case REQUEST_POKEMONS_SUCCESS:
       return {
         ...state,
         table: action.payload

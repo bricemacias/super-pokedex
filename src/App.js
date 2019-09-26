@@ -8,8 +8,8 @@ import HeightSlider from './components/HeightSlider';
 import RadioButton from './components/Inputs/RadioButton';
 import TypeList from './components/TypeList';
 
-import { setSearchField, returnFilter } from './redux/actions/searchAction';
-import { requestPokemons } from './redux/actions/fetchingPokemonsAction';
+import { setSearchField, returnFilter } from './redux/actions/searchActions';
+import { requestPokemons } from './redux/actions/fetchingPokemonsActions';
 
 function App({
   searchField,
