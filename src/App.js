@@ -10,7 +10,10 @@ import TypeList from './components/TypeList';
 
 import { setSearchField, returnFilter } from './redux/actions/searchActions';
 import { requestPokemons } from './redux/actions/fetchingPokemonsActions';
-import { setHeightFilter } from './redux/actions/filterActions';
+import {
+  setHeightFilter,
+  setWeaknessFilter
+} from './redux/actions/filterActions';
 
 function App({
   searchField,
@@ -21,59 +24,56 @@ function App({
   error,
   onRequestPokemons,
   onHeightFilter,
-  heightFilterValues
+  heightFilterValues,
+  onWeaknessesFilter,
+  weaknessesFilterValues,
+  weaknessesCounter
 }) {
   //const [pokemons, setPokemons] = useState(pokemonsExample);
   //const [searchfield, setSearchfield] = useState('');
   const [optionvalue, setOptionvalue] = useState('name');
-  const [checkboxvalues, setCheckboxvalues] = useState({
-    normal: 0,
-    fire: 0,
-    water: 0,
-    grass: 0,
-    electric: 0,
-    ice: 0,
-    fighting: 0,
-    poison: 0,
-    ground: 0,
-    flying: 0,
-    psychic: 0,
-    bug: 0,
-    rock: 0,
-    ghost: 0,
-    dragon: 0,
-    dark: 0,
-    steel: 0,
-    fairy: 0
-  });
-  const [count, setCount] = useState(0);
-  //const [slidervalues, setSlidervalues] = useState({ min: 0, max: 7 });
+  // const [checkboxvalues, setCheckboxvalues] = useState({
+  //   normal: 0,
+  //   fire: 0,
+  //   water: 0,
+  //   grass: 0,
+  //   electric: 0,
+  //   ice: 0,
+  //   fighting: 0,
+  //   poison: 0,
+  //   ground: 0,
+  //   flying: 0,
+  //   psychic: 0,
+  //   bug: 0,
+  //   rock: 0,
+  //   ghost: 0,
+  //   dragon: 0,
+  //   dark: 0,
+  //   steel: 0,
+  //   fairy: 0
+  // });
+  // const [count, setCount] = useState(0);
 
   useEffect(() => {
     onRequestPokemons();
   }, [onRequestPokemons]);
 
-  // const onSliderChange = value => {
-  //   console.log(value);
-  //   setSlidervalues({ min: value[0], max: value[1] });
-  // };
-
   const handleOptionChange = changeEvent => {
     setOptionvalue(changeEvent.target.value);
   };
 
-  const handleWeaknessChange = changeEvent => {
-    console.log(checkboxvalues);
-    let type = changeEvent.target.value;
-    let counter = count;
-    if (checkboxvalues[type] === 1) {
-      setCheckboxvalues({ ...checkboxvalues, [type]: 0 });
-      setCount(--counter);
-    } else if (checkboxvalues[type] === 0) {
-      setCheckboxvalues({ ...checkboxvalues, [type]: 1 });
-      setCount(++counter);
-    }
-  };
+  // const handleWeaknessChange = changeEvent => {
+  //   console.log(checkboxvalues);
+  //   let type = changeEvent.target.value;
+  //   let counter = count;
+  //   if (checkboxvalues[type] === 1) {
+  //     setCheckboxvalues({ ...checkboxvalues, [type]: 0 });
+  //     setCount(--counter);
+  //   } else if (checkboxvalues[type] === 0) {
+  //     setCheckboxvalues({ ...checkboxvalues, [type]: 1 });
+  //     setCount(++counter);
+  //   }
+  // };
 
   const filteredHeightPokemons = pokemons.filter(pokemon => {
     return (
@@ -83,12 +83,12 @@ function App({
   });
 
   const filteredWeaknessPokemons = filteredHeightPokemons.filter(pokemon => {
-    if (count === 0) {
+    if (weaknessesCounter === 0) {
       return true;
     } else {
       let weaknesses = pokemon.weaknesses.map(el => el.toLowerCase());
       for (let i of weaknesses) {
-        if (checkboxvalues[i] === 1) {
+        if (weaknessesFilterValues[i] === 1) {
           return true;
         }
       }
@@ -111,7 +111,7 @@ function App({
 
   useEffect(() => {
     onFilter(filteredPokemons);
-  }, [searchField, heightFilterValues, checkboxvalues]);
+  }, [searchField, heightFilterValues, weaknessesFilterValues]);
 
   return isPending ? (
     <h1 className="tc mt5">Loading</h1>
@@ -139,8 +139,8 @@ function App({
       <HeightSlider values={heightFilterValues} sliderChange={onHeightFilter} />
       <h2>Filter By Weaknesses</h2>
       <TypeList
-        typeValues={checkboxvalues}
-        typelistChange={handleWeaknessChange}
+        typeValues={weaknessesFilterValues}
+        typelistChange={onWeaknessesFilter}
       />
       <CardList className="CardList" pokemons={filteredPokemons} />
     </div>
@@ -154,7 +154,9 @@ const mapStateToProps = state => {
     pokemons: state.requestPokemons.pokemons,
     isPending: state.requestPokemons.isPending,
     error: state.requestPokemons.error,
-    heightFilterValues: state.filterPokemons.heightFilterValues
+    heightFilterValues: state.filterPokemons.heightFilterValues,
+    weaknessesFilterValues: state.filterPokemons.weaknessesFilterValues,
+    weaknessesCounter: state.filterPokemons.weaknessesCounter
   };
 };
 
@@ -165,7 +167,9 @@ const mapDispatchToProps = dispatch => {
     //   dispatch(filterPokemons(pokemonList, anOption, aSearchList)),
     onFilter: pokemonList => dispatch(returnFilter(pokemonList)),
     onRequestPokemons: () => dispatch(requestPokemons()),
-    onHeightFilter: values => dispatch(setHeightFilter(values))
+    onHeightFilter: values => dispatch(setHeightFilter(values)),
+    onWeaknessesFilter: (values, event, aCounter) =>
+      dispatch(setWeaknessFilter(values, event, aCounter))
   };
 };
 
