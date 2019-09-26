@@ -29,30 +29,7 @@ function App({
   weaknessesFilterValues,
   weaknessesCounter
 }) {
-  //const [pokemons, setPokemons] = useState(pokemonsExample);
-  //const [searchfield, setSearchfield] = useState('');
   const [optionvalue, setOptionvalue] = useState('name');
-  // const [checkboxvalues, setCheckboxvalues] = useState({
-  //   normal: 0,
-  //   fire: 0,
-  //   water: 0,
-  //   grass: 0,
-  //   electric: 0,
-  //   ice: 0,
-  //   fighting: 0,
-  //   poison: 0,
-  //   ground: 0,
-  //   flying: 0,
-  //   psychic: 0,
-  //   bug: 0,
-  //   rock: 0,
-  //   ghost: 0,
-  //   dragon: 0,
-  //   dark: 0,
-  //   steel: 0,
-  //   fairy: 0
-  // });
-  // const [count, setCount] = useState(0);
 
   useEffect(() => {
     onRequestPokemons();
@@ -61,19 +38,6 @@ function App({
   const handleOptionChange = changeEvent => {
     setOptionvalue(changeEvent.target.value);
   };
-
-  // const handleWeaknessChange = changeEvent => {
-  //   console.log(checkboxvalues);
-  //   let type = changeEvent.target.value;
-  //   let counter = count;
-  //   if (checkboxvalues[type] === 1) {
-  //     setCheckboxvalues({ ...checkboxvalues, [type]: 0 });
-  //     setCount(--counter);
-  //   } else if (checkboxvalues[type] === 0) {
-  //     setCheckboxvalues({ ...checkboxvalues, [type]: 1 });
-  //     setCount(++counter);
-  //   }
-  // };
 
   const filteredHeightPokemons = pokemons.filter(pokemon => {
     return (
@@ -95,19 +59,17 @@ function App({
     }
   });
 
-  const filteredPokemons =
-    //onFilter(pokemons, optionvalue, searchField);
-    filteredWeaknessPokemons.filter(pokemon => {
-      if (optionvalue === 'name') {
-        return pokemon.name.toLowerCase().includes(searchField.toLowerCase());
-      } else if (optionvalue === 'type') {
-        return pokemon.type
-          .map(el => el.toLowerCase())
-          .includes(searchField.toLowerCase());
-      } else {
-        return false;
-      }
-    });
+  const filteredPokemons = filteredWeaknessPokemons.filter(pokemon => {
+    if (optionvalue === 'name') {
+      return pokemon.name.toLowerCase().includes(searchField.toLowerCase());
+    } else if (optionvalue === 'type') {
+      return pokemon.type
+        .map(el => el.toLowerCase())
+        .includes(searchField.toLowerCase());
+    } else {
+      return false;
+    }
+  });
 
   useEffect(() => {
     onFilter(filteredPokemons);
@@ -163,8 +125,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onSearchTyping: event => dispatch(setSearchField(event.target.value)),
-    // onFilter1: (pokemonList, anOption, aSearchList) =>
-    //   dispatch(filterPokemons(pokemonList, anOption, aSearchList)),
     onFilter: pokemonList => dispatch(returnFilter(pokemonList)),
     onRequestPokemons: () => dispatch(requestPokemons()),
     onHeightFilter: values => dispatch(setHeightFilter(values)),

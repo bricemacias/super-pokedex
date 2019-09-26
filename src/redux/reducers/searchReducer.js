@@ -28,16 +28,6 @@ export const searchPokemons = (state = initialState, action = {}) => {
         ...state,
         table: action.payload
       };
-    // case FILTER_POKEMONS_SUCCESS:
-    //   return {
-    //     ...state,
-    //     table: action.payload
-    //   };
-    // case FILTER_POKEMONS_FAILED:
-    //   return {
-    //     ...state,
-    //     error: action.payload
-    //   };
     default:
       return state;
   }
