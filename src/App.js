@@ -7,6 +7,7 @@ import SearchBox from './components/SearchBox';
 import HeightSlider from './components/HeightSlider';
 import RadioButton from './components/Inputs/RadioButton';
 import TypeList from './components/TypeList';
+import Scroll from './components/layout/Scroll';
 
 import {
   setSearchField,
@@ -85,7 +86,7 @@ function App({
     <h1 className="tc mt5">Loading</h1>
   ) : (
     <div className="App">
-      <h1 style={{ fontSize: 70 }}>Super Pokedex</h1>
+      <h1 className="f1">Super Pokedex</h1>
       <div className="container">
         <SearchBox
           searchChange={onSearchTyping}
@@ -108,14 +109,16 @@ function App({
           />
         </form>
       </div>
-      <h2>Filter By Height</h2>
+      <h2 className="f6">Filter By Height</h2>
       <HeightSlider values={heightFilterValues} sliderChange={onHeightFilter} />
-      <h2>Filter By Weaknesses</h2>
+      <h2 className="f6">Filter By Weaknesses</h2>
       <TypeList
         typeValues={weaknessesFilterValues}
         typelistChange={onWeaknessesFilter}
       />
-      <CardList className="CardList" pokemons={filteredPokemons} />
+      <Scroll>
+        <CardList className="CardList" pokemons={filteredPokemons} />
+      </Scroll>
     </div>
   );
 }

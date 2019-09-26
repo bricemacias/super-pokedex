@@ -42,10 +42,10 @@ The goal was to optimize user experience. For that, several choices were made :
 - easy filters, especially for the height where a double slider was used to easilly fix min and max height
 - colored cards per type of pokemon
 - autocomplete added when searching by type
+- allowing the search module to stay accessible on top even when scrolling
 - responsive, works on mobile
 
 Possible improvements:
 
 - progressive web app for access offline and optimisation for mobile platforms,
 - adding a toggle button to hide and show filters
-- allowing the search module to stay on top even when scrolling
