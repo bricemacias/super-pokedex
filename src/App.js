@@ -10,6 +10,7 @@ import TypeList from './components/TypeList';
 
 import { setSearchField, returnFilter } from './redux/actions/searchActions';
 import { requestPokemons } from './redux/actions/fetchingPokemonsActions';
+import { setHeightFilter } from './redux/actions/filterActions';
 
 function App({
   searchField,
@@ -18,7 +19,9 @@ function App({
   pokemons,
   isPending,
   error,
-  onRequestPokemons
+  onRequestPokemons,
+  onHeightFilter,
+  heightFilterValues
 }) {
   //const [pokemons, setPokemons] = useState(pokemonsExample);
   //const [searchfield, setSearchfield] = useState('');
@@ -44,16 +47,16 @@ function App({
     fairy: 0
   });
   const [count, setCount] = useState(0);
-  const [slidervalues, setSlidervalues] = useState({ min: 0, max: 7 });
+  //const [slidervalues, setSlidervalues] = useState({ min: 0, max: 7 });
 
   useEffect(() => {
     onRequestPokemons();
   }, [onRequestPokemons]);
 
-  const onSliderChange = value => {
-    console.log(value);
-    setSlidervalues({ min: value[0], max: value[1] });
-  };
+  // const onSliderChange = value => {
+  //   console.log(value);
+  //   setSlidervalues({ min: value[0], max: value[1] });
+  // };
 
   const handleOptionChange = changeEvent => {
     setOptionvalue(changeEvent.target.value);
@@ -74,8 +77,8 @@ function App({
 
   const filteredHeightPokemons = pokemons.filter(pokemon => {
     return (
-      parseFloat(pokemon.height.split(' ')[0]) >= slidervalues.min &&
-      parseFloat(pokemon.height.split(' ')[0]) <= slidervalues.max
+      parseFloat(pokemon.height.split(' ')[0]) >= heightFilterValues.min &&
+      parseFloat(pokemon.height.split(' ')[0]) <= heightFilterValues.max
     );
   });
 
@@ -108,7 +111,7 @@ function App({
 
   useEffect(() => {
     onFilter(filteredPokemons);
-  }, [searchField, slidervalues, checkboxvalues]);
+  }, [searchField, heightFilterValues, checkboxvalues]);
 
   return isPending ? (
     <h1 className="tc mt5">Loading</h1>
@@ -133,7 +136,7 @@ function App({
         </form>
       </div>
       <h2>Filter By Height</h2>
-      <HeightSlider values={slidervalues} sliderChange={onSliderChange} />
+      <HeightSlider values={heightFilterValues} sliderChange={onHeightFilter} />
       <h2>Filter By Weaknesses</h2>
       <TypeList
         typeValues={checkboxvalues}
@@ -150,7 +153,8 @@ const mapStateToProps = state => {
     table: state.searchPokemons.table,
     pokemons: state.requestPokemons.pokemons,
     isPending: state.requestPokemons.isPending,
-    error: state.requestPokemons.error
+    error: state.requestPokemons.error,
+    heightFilterValues: state.filterPokemons.heightFilterValues
   };
 };
 
@@ -160,7 +164,8 @@ const mapDispatchToProps = dispatch => {
     // onFilter1: (pokemonList, anOption, aSearchList) =>
     //   dispatch(filterPokemons(pokemonList, anOption, aSearchList)),
     onFilter: pokemonList => dispatch(returnFilter(pokemonList)),
-    onRequestPokemons: () => dispatch(requestPokemons())
+    onRequestPokemons: () => dispatch(requestPokemons()),
+    onHeightFilter: values => dispatch(setHeightFilter(values))
   };
 };
 

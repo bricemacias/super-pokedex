@@ -10,11 +10,16 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { searchPokemons } from './redux/reducers/searchReducer';
 import { requestPokemons } from './redux/reducers/fetchingPokemonsReducer';
+import { filterPokemons } from './redux/reducers/filterReducer';
 import 'tachyons';
 
 const logger = createLogger();
 
-const rootReducer = combineReducers({ searchPokemons, requestPokemons });
+const rootReducer = combineReducers({
+  searchPokemons,
+  requestPokemons,
+  filterPokemons
+});
 
 const store = createStore(
   rootReducer,
