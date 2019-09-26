@@ -1,68 +1,51 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Super Pokedex
 
-## Available Scripts
+## Link
 
-In the project directory, you can run:
+The project is available on Netlify at the following address :
 
-### `npm start`
+https://elated-lalande-2ab2ab.netlify.com/
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Installing and running Locally
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- clone the repository
+- at the root of the folder type yarn and then yarn start
 
-### `npm test`
+## Functionnalities
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The pokedex can search pokemons by name and by Type. It can also Filter them by Height and Weaknesses. It was built using React, axios and Redux.
 
-### `npm run build`
+## Optional improvements added
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Sharing the filter state and table
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+For sharing the state we used Redux. The app uses Google Chrome Redux Dev Tools, where you will be able to see the different states as you use the app.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Optimization
 
-### `npm run eject`
+The app has a global grade of A in terms of performance on webpagetest.org and a score of 95/100 in performance, 89/100 in accessibility and 93/100 in best practises according to Google Chrome Lighthouse.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+In order to optimize the application, several choices where made :
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- no big external packages like bootstrap or material-UI were installed. Only tachyons wich is much smaller was used to improve coding experience
+- using flexbox for responsive results
+- no background or unecessary images were used, only colors and gradients
+- code kept a maximum clean and well splitted
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Possible improvements: using React Lazy to charge modules only when necessary
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## User Experience
 
-## Learn More
+The goal was to optimize user experience. For that, several choices were made :
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- instant results, the user don't have to click any button to see the results, they are loaded automatically
+- easy filters, especially for the height where a double slider was used to easilly fix min and max height
+- colored cards per type of pokemon
+- autocomplete added when searching by type
+- responsive, works on mobile
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Possible improvements:
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- progressive web app for access offline and optimisation for mobile platforms,
+- adding a toggle button to hide and show filters
+- allowing the search module to stay on top even when scrolling
