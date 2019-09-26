@@ -6,11 +6,6 @@ export const setSearchField = text => ({
   payload: text
 });
 
-export const setTypeField = text => ({
-  type: CHANGE_SEARCH_FIELD,
-  payload: text
-});
-
 export const setTypeAutocomplete = array => dispatch => {
   if (array.length === 0) {
     dispatch({
