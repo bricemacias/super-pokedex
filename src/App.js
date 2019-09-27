@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 
-import CardList from './Components/CardList';
+import CardList from './Components/CardList.js';
 import SearchBox from './Components/SearchBox';
 import HeightSlider from './Components/HeightSlider';
 import RadioButton from './Components/Inputs/RadioButton';
