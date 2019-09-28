@@ -9,6 +9,8 @@ import RadioButton from './Components/Inputs/RadioButton';
 import TypeList from './Components/TypeList';
 import Scroll from './Components/Layout/Scroll';
 
+import Image from './images/Super-Pokedex.png';
+
 import {
   setSearchField,
   setTypeAutocomplete,
@@ -86,7 +88,13 @@ function App({
     <h1 className="tc mt5">Loading</h1>
   ) : (
     <div className="App">
-      <h1 className="f1">Super Pokedex</h1>
+      <div
+        className="mb3  bb bw3 b--black"
+        style={{ backgroundColor: '#e61f1f', width: '100%' }}
+      >
+        <img src={Image} />
+      </div>
+
       <div className="container">
         <SearchBox
           searchChange={onSearchTyping}
@@ -109,13 +117,14 @@ function App({
           />
         </form>
       </div>
-      <h2 className="f6">Filter By Height</h2>
+      <h2 className="f4">Filter By Height</h2>
       <HeightSlider values={heightFilterValues} sliderChange={onHeightFilter} />
-      <h2 className="f6">Filter By Weaknesses</h2>
+      <h2 className="f4">Filter By Weaknesses</h2>
       <TypeList
         typeValues={weaknessesFilterValues}
         typelistChange={onWeaknessesFilter}
       />
+
       <Scroll>
         <CardList className="CardList" pokemons={filteredPokemons} />
       </Scroll>
