@@ -39,15 +39,17 @@ const Card = ({ id, image, name, type, weaknesses, height }) => {
     >
       <img src={image} alt={name} />
       <div>
-        <h2>{name}</h2>
-        <p>Type: {type.length > 1 ? `${type[0]} ${type[1]}` : type[0]}</p>
-        <p>
+        <h2 className="white">{name}</h2>
+        <p className="white">
+          Type: {type.length > 1 ? `${type[0]} ${type[1]}` : type[0]}
+        </p>
+        <p className="white">
           Weaknesses:{' '}
           {weaknesses.length > 1
             ? weaknesses.map(element => `${element} `)
             : weaknesses[0]}
         </p>
-        <p>Height: {height}</p>
+        <p className="white">Height: {height}</p>
       </div>
     </div>
   );
