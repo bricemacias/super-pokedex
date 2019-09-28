@@ -23,7 +23,7 @@ The pokedex can search pokemons by name and by Type. It can also Filter them by 
 
 ### Sharing the filter state and table
 
-For sharing the state we used Redux. The app uses Google Chrome Redux Dev Tools, where you will be able to see the different states as you use the app.
+For sharing the state we used Redux. The app uses Google Chrome Redux Dev Tools, where you will be able to see the different states as you use the app, like pokemons fetched, actual table of pokemons listed, and filters activated.
 
 ### Optimization
 
