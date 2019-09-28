@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
-import { createLogger } from 'redux-logger';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.css';
@@ -12,8 +11,6 @@ import { searchPokemons } from './redux/reducers/searchReducer';
 import { requestPokemons } from './redux/reducers/fetchingPokemonsReducer';
 import { filterPokemons } from './redux/reducers/filterReducer';
 import 'tachyons';
-
-const logger = createLogger();
 
 const middleware = [thunk];
 
