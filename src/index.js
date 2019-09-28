@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
 import { createLogger } from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
+import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.css';
 import App from './App';
@@ -15,6 +15,8 @@ import 'tachyons';
 
 const logger = createLogger();
 
+const middleware = [thunk];
+
 const rootReducer = combineReducers({
   searchPokemons,
   requestPokemons,
@@ -23,10 +25,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(
   rootReducer,
-  compose(
-    applyMiddleware(thunkMiddleware, logger),
-    composeWithDevTools()
-  )
+  composeWithDevTools(applyMiddleware(...middleware))
 );
 
 ReactDOM.render(
