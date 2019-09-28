@@ -5,6 +5,8 @@ const Scroll = props => {
     <div
       style={{
         overflowY: 'scroll',
+        overflowScrolling: 'touch',
+        WebkitOverflowScrolling: 'touch',
         height: '530px'
       }}
     >

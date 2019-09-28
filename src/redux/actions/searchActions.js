@@ -1,5 +1,4 @@
 import { CHANGE_SEARCH_FIELD, RETURN_TABLE } from '../types';
-import { dispatch } from 'rxjs/internal/observable/range';
 
 export const setSearchField = text => ({
   type: CHANGE_SEARCH_FIELD,
