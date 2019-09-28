@@ -15,7 +15,7 @@ https://elated-lalande-2ab2ab.netlify.com
 - clone the repository
 - at the root of the folder type yarn install and then yarn start
 
-## Functionnalities
+## Functionalities
 
 The pokedex can search pokemons by name and by Type. It can also Filter them by Height and Weaknesses. It was built using React, axios and Redux.
 
