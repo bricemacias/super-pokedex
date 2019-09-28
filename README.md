@@ -2,14 +2,18 @@
 
 ## Link
 
-The project is available on Netlify at the following address :
+The project is available on Heroku at the following address :
 
-https://elated-lalande-2ab2ab.netlify.com/
+https://super-pokedex.herokuapp.com
+
+and on Netlify at the following adress:
+
+https://elated-lalande-2ab2ab.netlify.com
 
 ### Installing and running Locally
 
 - clone the repository
-- at the root of the folder type yarn and then yarn start
+- at the root of the folder type yarn install and then yarn start
 
 ## Functionnalities
 

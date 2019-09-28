@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, compose, applyMiddleware, combineReducers } from 'redux';
-import { createLogger } from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.css';
 import App from './App';
@@ -13,7 +12,7 @@ import { requestPokemons } from './redux/reducers/fetchingPokemonsReducer';
 import { filterPokemons } from './redux/reducers/filterReducer';
 import 'tachyons';
 
-const logger = createLogger();
+const middleware = [thunk];
 
 const rootReducer = combineReducers({
   searchPokemons,
@@ -23,10 +22,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(
   rootReducer,
-  compose(
-    applyMiddleware(thunkMiddleware, logger),
-    composeWithDevTools()
-  )
+  composeWithDevTools(applyMiddleware(...middleware))
 );
 
 ReactDOM.render(
